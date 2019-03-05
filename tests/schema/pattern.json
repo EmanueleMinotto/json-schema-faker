@@ -1,0 +1,4 @@
+{
+  "type": "string",
+  "pattern": "^opis\\/[a-z-]+$"
+}

@@ -1,0 +1,15 @@
+{
+  "type": "object",
+  "properties": {
+    "a": true,
+    "b": true
+  },
+  "patternProperties": {
+    "^extra-": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": {
+    "type": "integer"
+  }
+}
