@@ -48,4 +48,16 @@ class JsonSchemaProviderTest extends TestCase
             yield [$path => file_get_contents($path)];
         }
     }
+
+    public function testFakeEnumEntriesArePickedFromDefinedEnumSet(): void
+    {
+        $json = file_get_contents(__DIR__.'/schema/enum.json');
+        $data = $this->faker->jsonSchemaContent($json);
+        $schema = json_decode($json);
+
+        $definedEnumSet = $schema->properties->enumProperty->enum;
+        $fakeEnumEntry = $data->enumProperty;
+
+        $this->assertArrayHasKey($fakeEnumEntry, array_flip($definedEnumSet));
+    }
 }
