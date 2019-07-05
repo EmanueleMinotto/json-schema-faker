@@ -1,0 +1,14 @@
+{
+    "type": "object",
+    "properties": {
+        "enumProperty": {
+            "type": "string",
+            "enum": [
+                "US",
+                "CA",
+                "GB"
+            ]
+        }
+    },
+    "required": ["enumProperty"]
+}
