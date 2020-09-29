@@ -24,6 +24,10 @@ class JsonSchemaProvider
             return null;
         }
 
+        if (is_array($schema['type'])) {
+            $schema['type'] = static::handleMultipleTypes($schema['type']);
+        }
+
         switch ($schema['type']) {
             case 'string':
                 return static::fromString($schema);
@@ -230,5 +234,27 @@ class JsonSchemaProvider
         $type = array_rand(array_flip(['string', 'number', 'integer']));
 
         return static::jsonSchema(['type' => $type]);
+    }
+
+    private static function handleMultipleTypes(array $multipleTypes)
+    {
+        $validTypes = [
+            'string',
+            'number',
+            'integer',
+            'boolean',
+            'array',
+            'object',
+            'null'
+        ];
+
+        $validatedTypes = [];
+        foreach($multipleTypes as $type) {
+            if (in_array($type, $validTypes)) {
+                $validatedTypes[] = $type;
+            }
+        }
+
+        return array_rand(array_flip($validatedTypes));
     }
 }
