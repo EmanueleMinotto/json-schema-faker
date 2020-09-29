@@ -16,12 +16,15 @@ class JsonSchemaProvider
 
     public static function jsonSchema(array $schema)
     {
-        if (!isset($schema['type']) && !empty($schema['enum'])) {
+        if (!empty($schema['enum'])) {
             return array_rand(array_flip($schema['enum']));
         }
 
         if (isset($schema['type']) && is_array($schema['type'])) {
             $schema['type'] = static::handleMultipleTypes($schema['type']);
+        
+        if (!isset($schema['type'])) {
+            return null;
         }
 
         switch ($schema['type']) {
