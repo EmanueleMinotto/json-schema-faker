@@ -17,7 +17,7 @@ class JsonSchemaProvider
     public static function jsonSchema(array $schema)
     {
         if (!empty($schema['enum'])) {
-            return array_rand(array_flip($schema['enum']));
+            return $schema['enum'][array_rand($schema['enum'], 1)];
         }
 
         if (!isset($schema['type'])) {
@@ -204,7 +204,7 @@ class JsonSchemaProvider
         }
 
         foreach ($schema['required'] ?? [] as $property) {
-            if (!isset($object->{$property})) {
+            if (!isset($object->{$property}) && false === property_exists($object, 'enumProperty')) {
                 $object->{$property} = static::getFromPatternProperties($property, $schema);
             }
         }
@@ -245,11 +245,11 @@ class JsonSchemaProvider
             'boolean',
             'array',
             'object',
-            'null'
+            'null',
         ];
 
         $validatedTypes = [];
-        foreach($multipleTypes as $type) {
+        foreach ($multipleTypes as $type) {
             if (in_array($type, $validTypes)) {
                 $validatedTypes[] = $type;
             }

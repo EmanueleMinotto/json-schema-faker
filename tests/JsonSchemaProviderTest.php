@@ -58,6 +58,6 @@ class JsonSchemaProviderTest extends TestCase
         $definedEnumSet = $schema->properties->enumProperty->enum;
         $fakeEnumEntry = $data->enumProperty;
 
-        $this->assertArrayHasKey($fakeEnumEntry, array_flip($definedEnumSet));
+        $this->assertContains($fakeEnumEntry, $definedEnumSet);
     }
 }

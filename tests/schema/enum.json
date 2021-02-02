@@ -2,11 +2,12 @@
     "type": "object",
     "properties": {
         "enumProperty": {
-            "type": "string",
+            "type": ["string", "null"],
             "enum": [
                 "US",
                 "CA",
-                "GB"
+                "GB",
+                null
             ]
         }
     },
